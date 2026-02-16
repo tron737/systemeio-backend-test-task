@@ -65,6 +65,7 @@ class Country
     public function setTax(Tax $tax): self
     {
         $this->tax = $tax;
+
         return $this;
     }
 }

@@ -12,9 +12,8 @@ class CalculatePriceController extends AbstractController
 {
     #[Route('/calculate-price', name: 'calculate_price', methods: ['POST'])]
     public function __invoke(
-        #[MapRequestPayload] CalculatePriceRequest $request
-    ): JsonResponse
-    {
+        #[MapRequestPayload] CalculatePriceRequest $request,
+    ): JsonResponse {
         return $this->json([]);
     }
 }

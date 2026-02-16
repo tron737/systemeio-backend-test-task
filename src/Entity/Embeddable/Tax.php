@@ -40,6 +40,6 @@ class Tax
 
     public function validateTaxNumber(string $taxNumber): bool
     {
-        return preg_match($this->getNumberPattern(), $taxNumber) === 1;
+        return 1 === preg_match($this->getNumberPattern(), $taxNumber);
     }
 }

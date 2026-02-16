@@ -10,8 +10,9 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class TaxNumberValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly CountryRepository $countryRepository
-    ) {}
+        private readonly CountryRepository $countryRepository,
+    ) {
+    }
 
     public function validate($value, Constraint $constraint): void
     {
@@ -30,6 +31,7 @@ class TaxNumberValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ country }}', $countryCode)
                 ->addViolation();
+
             return;
         }
 

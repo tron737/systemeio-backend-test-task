@@ -17,6 +17,7 @@ class PercentCoupon extends Coupon implements CouponInterface
     public function applyDiscount(float $price): float
     {
         $discount = $price * ($this->getValue() / 100);
+
         return $price - $discount;
     }
 }

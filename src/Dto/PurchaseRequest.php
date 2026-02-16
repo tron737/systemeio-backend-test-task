@@ -2,11 +2,7 @@
 
 namespace App\Dto;
 
-use App\Entity\Coupon;
-use App\Entity\Product;
 use App\Enum\Payment;
-use App\Validator\EntityExists;
-use App\Validator\TaxNumber;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class PurchaseRequest extends CalculatePriceRequest

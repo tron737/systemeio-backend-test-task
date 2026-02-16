@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
     CouponType::FIXED->value => FixedCoupon::class,
-    CouponType::PERCENT->value => PercentCoupon::class
+    CouponType::PERCENT->value => PercentCoupon::class,
 ])]
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
 class Coupon

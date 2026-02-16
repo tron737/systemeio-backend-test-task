@@ -11,8 +11,9 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 class EntityExistsValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
-    ) {}
+        private readonly EntityManagerInterface $entityManager,
+    ) {
+    }
 
     public function validate(mixed $value, Constraint $constraint): void
     {
@@ -29,13 +30,7 @@ class EntityExistsValidator extends ConstraintValidator
         $repository = $this->entityManager->getRepository($constraint->entityClass);
 
         if (!method_exists($repository, $constraint->repositoryMethod)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Method "%s" does not exist in repository "%s"',
-                    $constraint->repositoryMethod,
-                    get_class($repository)
-                )
-            );
+            throw new \InvalidArgumentException(sprintf('Method "%s" does not exist in repository "%s"', $constraint->repositoryMethod, get_class($repository)));
         }
 
         $entity = $repository->{$constraint->repositoryMethod}($value);

@@ -12,9 +12,8 @@ class PurchaseController extends AbstractController
 {
     #[Route('/purchase', name: 'purchase', methods: ['POST'])]
     public function __invoke(
-        #[MapRequestPayload] PurchaseRequest $request
-    ): JsonResponse
-    {
+        #[MapRequestPayload] PurchaseRequest $request,
+    ): JsonResponse {
         return $this->json([]);
     }
 }
