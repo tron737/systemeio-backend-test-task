@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Dto\CalculatePriceRequest;
-use App\Dto\PriceCalculationResponse;
+use App\Dto\CalculatePriceResponse;
 use App\Service\PriceCalculator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,7 +22,7 @@ class CalculatePriceController extends AbstractController
         #[MapRequestPayload] CalculatePriceRequest $request,
     ): JsonResponse {
         return $this->json(
-            new PriceCalculationResponse(
+            new CalculatePriceResponse(
                 $this->priceCalculator->calculate($request->product, $request->taxNumber, $request->couponCode)
             )
         );

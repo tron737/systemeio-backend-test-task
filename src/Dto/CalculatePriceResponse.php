@@ -2,7 +2,7 @@
 
 namespace App\Dto;
 
-readonly class PriceCalculationResponse
+readonly class CalculatePriceResponse
 {
     public function __construct(
         public float $finalPrice,
