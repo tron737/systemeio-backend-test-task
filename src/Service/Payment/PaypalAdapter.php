@@ -6,12 +6,15 @@ use Systemeio\TestForCandidates\PaymentProcessor\PaypalPaymentProcessor;
 
 class PaypalAdapter implements PaymentProcessorInterface
 {
+    public function __construct(private PaypalPaymentProcessor $paypalPaymentProcessor)
+    {
+    }
+
     /**
      * @throws \Exception
      */
     public function process(float $amount): void
     {
-        $paypalProcessor = new PaypalPaymentProcessor();
-        $paypalProcessor->pay((int) $amount);
+        $this->paypalPaymentProcessor->pay((int) $amount);
     }
 }
