@@ -29,6 +29,6 @@ class PriceCalculator
 
         $tax = $this->taxCalculator->calculate($taxNumber, $priceAfterDiscount);
 
-        return $priceAfterDiscount + $tax;
+        return round($priceAfterDiscount + $tax, 2);
     }
 }
