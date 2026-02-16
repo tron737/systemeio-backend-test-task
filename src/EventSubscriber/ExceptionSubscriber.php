@@ -12,6 +12,11 @@ use Symfony\Component\Validator\Exception\ValidationFailedException;
 
 class ExceptionSubscriber implements EventSubscriberInterface
 {
+    public function __construct(
+        private readonly string $environment,
+    ) {
+    }
+
     public static function getSubscribedEvents(): array
     {
         return [
@@ -81,7 +86,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
         $exception = $event->getThrowable();
 
-        $isDebug = 'dev' === $_ENV['APP_ENV'] ?? false;
+        $isDebug = 'dev' === $this->environment;
 
         $response = new JsonResponse([
             'error' => $isDebug ? $exception->getMessage() : 'Internal server error',

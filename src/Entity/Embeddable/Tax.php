@@ -40,11 +40,19 @@ class Tax
 
     public function validateTaxNumber(string $taxNumber): bool
     {
+        if (null === $this->getNumberPattern()) {
+            throw new \InvalidArgumentException('The number pattern is required.');
+        }
+
         return 1 === preg_match($this->getNumberPattern(), $taxNumber);
     }
 
     public function calculateTax(float $price): float
     {
-        return $price * $this->getRate();
+        if (null === $this->getRate()) {
+            throw new \InvalidArgumentException('The rate is required.');
+        }
+
+        return round($price * (float) $this->getRate(), 2);
     }
 }

@@ -14,25 +14,25 @@ class CountryFixtures extends Fixture
             [
                 'code' => 'DE',
                 'name' => 'Germany',
-                'rate' => 0.19,
+                'rate' => '0.19',
                 'numberPattern' => '/^DE\d{9}$/',
             ],
             [
                 'code' => 'IT',
                 'name' => 'Italy',
-                'rate' => 0.22,
+                'rate' => '0.22',
                 'numberPattern' => '/^IT\d{11}$/',
             ],
             [
                 'code' => 'GR',
                 'name' => 'Greece',
-                'rate' => 0.24,
+                'rate' => '0.24',
                 'numberPattern' => '/^GR\d{9}$/',
             ],
             [
                 'code' => 'FR',
                 'name' => 'France',
-                'rate' => 0.20,
+                'rate' => '0.20',
                 'numberPattern' => '/^FR[A-Z]{2}\d{9}$/',
             ],
         ];

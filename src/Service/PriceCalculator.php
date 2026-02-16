@@ -13,7 +13,7 @@ class PriceCalculator
     ) {
     }
 
-    public function calculate(int $productId, $taxNumber, ?string $couponCode = null): float
+    public function calculate(int $productId, \App\ValueObject\TaxNumber $taxNumber, ?string $couponCode = null): float
     {
         $product = $this->productRepository->find($productId);
 
@@ -21,7 +21,11 @@ class PriceCalculator
             throw new \InvalidArgumentException(sprintf('Product(%s) not found', $taxNumber->getCountryCode()));
         }
 
-        $priceAfterDiscount = $this->couponService->applyCoupon($couponCode, $product->getPrice());
+        if (null === $product->getPrice()) {
+            throw new \InvalidArgumentException(sprintf('Product(%s) price not set', $taxNumber->getCountryCode()));
+        }
+
+        $priceAfterDiscount = $this->couponService->applyCoupon($couponCode, (float) $product->getPrice());
 
         $tax = $this->taxCalculator->calculate($taxNumber, $priceAfterDiscount);
 

@@ -12,6 +12,6 @@ class PaypalAdapter implements PaymentProcessorInterface
     public function process(float $amount): void
     {
         $paypalProcessor = new PaypalPaymentProcessor();
-        $paypalProcessor->pay($amount);
+        $paypalProcessor->pay((int) $amount);
     }
 }

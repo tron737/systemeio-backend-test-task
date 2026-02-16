@@ -13,23 +13,23 @@ class ProductFixtures extends Fixture
         $items = [
             [
                 'name' => 'iPhone 14',
-                'price' => 999.99,
+                'price' => '999.99',
             ],
             [
                 'name' => 'Wireless Headphones',
-                'price' => 199.50,
+                'price' => '199.50',
             ],
             [
                 'name' => 'Phone Case',
-                'price' => 19.99,
+                'price' => '19.99',
             ],
             [
                 'name' => 'MacBook Pro 16"',
-                'price' => 102499.00,
+                'price' => '102499.00',
             ],
             [
                 'name' => 'Smart Watch',
-                'price' => 349.99,
+                'price' => '349.99',
             ],
         ];
 

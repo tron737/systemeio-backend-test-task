@@ -20,7 +20,6 @@ class PaymentFactory
         return match ($payment) {
             Payment::PAYPAL => $this->paypalAdapter,
             Payment::STRIPE => $this->stripeAdapter,
-            default => throw new \RuntimeException(sprintf('Payment processor "%s" is not supported', $payment->value)),
         };
     }
 }

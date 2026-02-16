@@ -27,6 +27,10 @@ class EntityExistsValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'scalar or array');
         }
 
+        if (!class_exists($constraint->entityClass)) {
+            throw new \InvalidArgumentException(sprintf('Class "%s" does not exist', $constraint->entityClass));
+        }
+
         $repository = $this->entityManager->getRepository($constraint->entityClass);
 
         if (!method_exists($repository, $constraint->repositoryMethod)) {
@@ -38,11 +42,19 @@ class EntityExistsValidator extends ConstraintValidator
         if (null === $entity) {
             $entityName = substr($constraint->entityClass, strrpos($constraint->entityClass, '\\') + 1);
 
+            $formattedValue = match (true) {
+                is_array($value) => implode(', ', $value),
+                is_bool($value) => $value ? 'true' : 'false',
+                is_float($value) => (string) $value,
+                is_int($value) => (string) $value,
+                default => (string) $value,
+            };
+
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ entity }}', $entityName)
                 ->setParameter('{{ field }}', $constraint->field ?? 'id')
-                ->setParameter('{{ value }}', (string) $value)
+                ->setParameter('{{ value }}', $formattedValue)
                 ->addViolation();
         }
     }

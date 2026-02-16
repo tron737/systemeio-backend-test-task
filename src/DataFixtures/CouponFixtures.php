@@ -16,22 +16,22 @@ class CouponFixtures extends Fixture
             [
                 'code' => 'FIXED10',
                 'type' => CouponType::FIXED,
-                'value' => 10.00,
+                'value' => '10.00',
             ],
             [
                 'code' => 'PERCENT20',
                 'type' => CouponType::PERCENT,
-                'value' => 20.00,
+                'value' => '20.00',
             ],
             [
                 'code' => 'SAVE15',
                 'type' => CouponType::PERCENT,
-                'value' => 15.00,
+                'value' => '15.00',
             ],
             [
                 'code' => 'BIG50',
                 'type' => CouponType::FIXED,
-                'value' => 50.00,
+                'value' => '50.00',
             ],
         ];
 

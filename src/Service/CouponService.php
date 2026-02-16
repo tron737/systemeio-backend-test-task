@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\CouponInterface;
 use App\Repository\CouponRepository;
 
 class CouponService
@@ -17,6 +18,7 @@ class CouponService
             return $price;
         }
 
+        /** @var CouponInterface|null $coupon */
         $coupon = $this->couponRepository->findOneBy(['code' => $couponCode]);
 
         if (!$coupon) {

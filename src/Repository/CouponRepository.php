@@ -18,10 +18,13 @@ class CouponRepository extends ServiceEntityRepository
 
     public function findByCode(string $code): ?Coupon
     {
-        return $this->createQueryBuilder('c')
+        /** @var Coupon|null $result */
+        $result = $this->createQueryBuilder('c')
             ->where('c.code = :code')
             ->setParameter('code', strtoupper($code))
             ->getQuery()
             ->getOneOrNullResult();
+
+        return $result;
     }
 }

@@ -16,6 +16,10 @@ class FixedCoupon extends Coupon implements CouponInterface
 
     public function applyDiscount(float $price): float
     {
-        return max(0, $price - $this->getValue());
+        if (null === $this->getValue()) {
+            throw new \InvalidArgumentException('Value must be set.');
+        }
+
+        return max(0, round($price - (float) $this->getValue(), 2));
     }
 }
