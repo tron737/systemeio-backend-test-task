@@ -25,14 +25,14 @@ class CalculatePriceRequest
     public \App\ValueObject\TaxNumber $taxNumber;
 
     #[Assert\Type('string')]
-    #[Assert\NotBlank(message: 'Coupon code cannot be empty', allowNull: false)]
+    #[Assert\NotBlank(message: 'Coupon code cannot be empty', allowNull: true)]
     #[EntityExists(
         entityClass: Coupon::class,
         repositoryMethod: 'findByCode',
         message: 'Coupon "{{ value }}" does not exist',
         field: 'code'
     )]
-    public ?string $couponCode;
+    public ?string $couponCode = null;
 
     public function __construct(string $taxNumber)
     {

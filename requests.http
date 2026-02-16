@@ -6,7 +6,28 @@ Content-Type: application/json
 {
   "product": 1,
   "taxNumber": "DE123456789",
-  "couponCode": "D15"
+  "couponCode": "FIXED10"
+}
+
+### Calculate Price
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789",
+  "couponCode": "PERCENT20"
+}
+
+### Calculate Price Without Coupon
+POST http://127.0.0.1:8337/calculate-price
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "DE123456789"
 }
 
 ### Execute Purchase
@@ -17,6 +38,30 @@ Content-Type: application/json
 {
   "product": 1,
   "taxNumber": "IT12345678900",
-  "couponCode": "D15",
+  "couponCode": "FIXED10",
+  "paymentProcessor": "paypal"
+}
+
+### Execute Purchase
+POST http://127.0.0.1:8337/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 1,
+  "taxNumber": "IT12345678900",
+  "couponCode": "FIXED10",
+  "paymentProcessor": "stripe"
+}
+
+### Error Execute Purchase
+POST http://127.0.0.1:8337/purchase
+Accept: application/json
+Content-Type: application/json
+
+{
+  "product": 4,
+  "taxNumber": "IT12345678900",
+  "couponCode": "FIXED10",
   "paymentProcessor": "paypal"
 }

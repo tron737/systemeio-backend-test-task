@@ -31,8 +31,14 @@ class PurchaseController extends AbstractController
             $request->couponCode
         );
 
-        $this->paymentFactory->create(Payment::from($request->paymentProcessor))->process($finalPrice);
+        $paymentStatus = PaymentStatus::COMPLETED;
 
-        return $this->json(new PurchaseResponse($finalPrice, PaymentStatus::COMPLETED));
+        try {
+            $this->paymentFactory->create(Payment::from($request->paymentProcessor))->process($finalPrice);
+        } catch (\Throwable $exception) {
+            $paymentStatus = PaymentStatus::FAILED;
+        }
+
+        return $this->json(new PurchaseResponse($finalPrice, $paymentStatus));
     }
 }
