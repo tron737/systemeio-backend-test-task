@@ -18,6 +18,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
             KernelEvents::EXCEPTION => [
                 ['onValidationException', 10],
                 ['onHttpException', 0],
+                ['onGenericException', -10],
             ],
         ];
     }
@@ -68,6 +69,25 @@ class ExceptionSubscriber implements EventSubscriberInterface
             'error' => $exception->getMessage() ?: 'HTTP error',
             'code' => $statusCode,
         ], $statusCode, $headers);
+
+        $event->setResponse($response);
+    }
+
+    public function onGenericException(ExceptionEvent $event): void
+    {
+        if ($event->hasResponse()) {
+            return;
+        }
+
+        $exception = $event->getThrowable();
+
+        $isDebug = 'dev' === $_ENV['APP_ENV'] ?? false;
+
+        $response = new JsonResponse([
+            'error' => $isDebug ? $exception->getMessage() : 'Internal server error',
+            'type' => $isDebug ? get_class($exception) : null,
+            'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
 
         $event->setResponse($response);
     }

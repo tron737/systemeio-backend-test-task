@@ -22,7 +22,7 @@ class CalculatePriceRequest
 
     #[Assert\NotBlank(message: 'Tax number is required')]
     #[TaxNumber]
-    public string $taxNumber;
+    public \App\ValueObject\TaxNumber $taxNumber;
 
     #[Assert\Type('string')]
     #[Assert\NotBlank(message: 'Coupon code cannot be empty', allowNull: false)]
@@ -33,4 +33,9 @@ class CalculatePriceRequest
         field: 'code'
     )]
     public ?string $couponCode;
+
+    public function __construct(string $taxNumber)
+    {
+        $this->taxNumber = \App\ValueObject\TaxNumber::fromString($taxNumber);
+    }
 }

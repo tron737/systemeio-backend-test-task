@@ -42,4 +42,9 @@ class Tax
     {
         return 1 === preg_match($this->getNumberPattern(), $taxNumber);
     }
+
+    public function calculateTax(float $price): float
+    {
+        return $price * $this->getRate();
+    }
 }

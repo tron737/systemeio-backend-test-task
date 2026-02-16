@@ -14,28 +14,30 @@ class TaxNumberValidator extends ConstraintValidator
     ) {
     }
 
+    /**
+     * @param \App\ValueObject\TaxNumber $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof TaxNumber) {
             throw new UnexpectedTypeException($constraint, TaxNumber::class);
         }
 
-        if (null === $value || '' === $value) {
+        if (!$value instanceof \App\ValueObject\TaxNumber) {
             return;
         }
 
-        $countryCode = substr($value, 0, 2);
-        $country = $this->countryRepository->findOneBy(['code' => $countryCode]);
+        $country = $this->countryRepository->findOneBy(['code' => $value->getCountryCode()]);
 
         if (!$country) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ country }}', $countryCode)
+                ->setParameter('{{ country }}', $value->getCountryCode())
                 ->addViolation();
 
             return;
         }
 
-        if (!$country->getTax()->validateTaxNumber($value)) {
+        if (!$country->getTax()->validateTaxNumber($value->getFullNumber())) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ country }}', $country->getCode())
                 ->addViolation();
