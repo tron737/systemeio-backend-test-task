@@ -25,7 +25,7 @@ class ProductFixtures extends Fixture
             ],
             [
                 'name' => 'MacBook Pro 16"',
-                'price' => 2499.00,
+                'price' => 102499.00,
             ],
             [
                 'name' => 'Smart Watch',
