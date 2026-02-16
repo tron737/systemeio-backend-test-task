@@ -2,26 +2,16 @@
 
 namespace App\Dto;
 
+use App\Entity\Coupon;
+use App\Entity\Product;
 use App\Enum\Payment;
+use App\Validator\EntityExists;
 use App\Validator\TaxNumber;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class PurchaseRequest
+class PurchaseRequest extends CalculatePriceRequest
 {
-    public function __construct(
-        #[Assert\NotBlank(message: 'Product ID is required')]
-        #[Assert\Positive(message: 'Product ID must be positive')]
-        public readonly int $product,
-
-        #[Assert\NotBlank(message: 'Tax number is required')]
-        #[TaxNumber]
-        public readonly string $taxNumber,
-
-        #[Assert\NotBlank(message: 'Payment processor is required')]
-        #[Assert\Choice(callback: [Payment::class, 'values'], message: 'Payment processor must be {{ choices }}')]
-        public readonly string $paymentProcessor,
-
-        #[Assert\Type('string')]
-        public readonly ?string $couponCode = null,
-    ) {}
+    #[Assert\NotBlank(message: 'Payment processor is required')]
+    #[Assert\Choice(callback: [Payment::class, 'values'], message: 'Payment processor must be {{ choices }}')]
+    public string $paymentProcessor;
 }
